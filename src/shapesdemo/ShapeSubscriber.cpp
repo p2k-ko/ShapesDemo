@@ -95,9 +95,10 @@ bool ShapeSubscriber::initSubscriber()
         parameters.emplace_back(std::to_string(m_shapeHistory.m_filter.m_maxX));
         parameters.emplace_back(std::to_string(m_shapeHistory.m_filter.m_minY));
         parameters.emplace_back(std::to_string(m_shapeHistory.m_filter.m_maxY));
+        parameters.emplace_back(std::string{"RED"});                /// additional color parameter
         mp_filtered_topic = mp_sd->getParticipant()->create_contentfilteredtopic(
             std::to_string(filter_index++), mp_topic,
-            "x > %0 AND x < %1 AND y > %2 AND y < %3", parameters);
+            "x > %0 AND x < %1 AND y > %2 AND y < %3 AND color = '%4'", parameters);  /// additional color expression
         if (nullptr != mp_filtered_topic)
         {
             topic = mp_filtered_topic;
